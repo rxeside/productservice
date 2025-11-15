@@ -37,7 +37,6 @@ func (q *productQueryService) FindProduct(ctx context.Context, productID uuid.UU
 	)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
-			// В Query слое лучше возвращать nil, а не ошибку ErrNotFound
 			return nil, nil
 		}
 		return nil, errors.WithStack(err)

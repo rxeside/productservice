@@ -2,7 +2,7 @@ package model
 
 import "github.com/google/uuid"
 
-// Product это модель данных для application слоя (DTO)
+// Product DTO
 type Product struct {
 	ProductID uuid.UUID
 	Name      string

@@ -15,7 +15,6 @@ import (
 )
 
 // --- Mocks ---
-// mockProductRepository это фейковая реализация репозитория для тестов
 type mockProductRepository struct {
 	products map[uuid.UUID]model.Product
 	// Позволяет нам "подсунуть" ошибку в тест
@@ -70,7 +69,6 @@ func (m *mockProductRepository) HardDelete(productID uuid.UUID) error {
 	return nil
 }
 
-// mockEventDispatcher это фейковый диспетчер событий
 type mockEventDispatcher struct {
 	dispatchedEvents []domain.Event
 }
@@ -83,18 +81,18 @@ func (m *mockEventDispatcher) Dispatch(event domain.Event) error {
 // --- Tests ---
 
 func TestProductService_CreateProduct_Success(t *testing.T) {
-	// Arrange (Подготовка)
+	// Arrange
 	repo := newMockProductRepository()
 	dispatcher := &mockEventDispatcher{}
 	productService := service.NewProductService(repo, dispatcher)
 	productName := "Test Coffee"
 	productPrice := int64(300)
 
-	// Act (Действие)
+	// Act
 	productID, err := productService.CreateProduct(productName, productPrice)
 
-	// Assert (Проверка)
-	require.NoError(t, err) // Убеждаемся, что ошибки нет
+	// Assert
+	require.NoError(t, err)
 	assert.NotEqual(t, uuid.Nil, productID)
 
 	// Проверяем, что продукт сохранился в нашем фейковом репозитории
@@ -126,7 +124,7 @@ func TestProductService_CreateProduct_NameAlreadyExists(t *testing.T) {
 	_, err := productService.CreateProduct(existingProductName, 500)
 
 	// Assert
-	require.Error(t, err) // Ожидаем ошибку
+	require.Error(t, err)
 	assert.True(t, errors.Is(err, model.ErrProductNameAlreadyUsed))
-	assert.Empty(t, dispatcher.dispatchedEvents) // Убеждаемся, что никакие события не были отправлены
+	assert.Empty(t, dispatcher.dispatchedEvents)
 }

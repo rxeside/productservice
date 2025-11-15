@@ -27,5 +27,5 @@ message FindProductResponse {
 message Product {
   string productID = 1;
   string name = 2;
-  int64 price = 3; // Цена в копейках/центах
+  int64 price = 3;
 }

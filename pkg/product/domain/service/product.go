@@ -76,10 +76,9 @@ func (s *productService) UpdateProduct(productID uuid.UUID, name string, price i
 	}
 
 	if product.Name == name && product.Price == price {
-		return nil // Нет изменений
+		return nil
 	}
 
-	// Проверка, что новое имя не занято другим продуктом
 	if product.Name != name {
 		existing, err := s.productRepository.Find(model.FindSpec{Name: &name})
 		if err != nil && !errors.Is(err, model.ErrProductNotFound) {

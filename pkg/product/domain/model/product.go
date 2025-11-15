@@ -16,7 +16,6 @@ var (
 type Product struct {
 	ProductID uuid.UUID
 	Name      string
-	// Цена в копейках/центах, чтобы избежать проблем с float
 	Price     int64
 	CreatedAt time.Time
 	UpdatedAt time.Time
