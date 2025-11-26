@@ -21,7 +21,7 @@ type Service struct {
 }
 
 type Database struct {
-	Product               string        `envconfig:"product" required:"true"`
+	Product               string        `envconfig:"user" required:"true"`
 	Password              string        `envconfig:"password" required:"true"`
 	Host                  string        `envconfig:"host" required:"true"`
 	Name                  string        `envconfig:"name" required:"true"`
